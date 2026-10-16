@@ -20,6 +20,7 @@
 #include "util.h"
 #include "pubsub_ids.h"
 #include "scheduler.h"
+#include "dialog_birdie_cal.h"
 #include "lv_drivers/display/drm.h"
 
 #include <stdlib.h>
@@ -223,6 +224,10 @@ void waterfall_data(float *data_buf, uint16_t size, bool tx, uint32_t base_freq,
     }
     wf_rows[last_row_id].center_freq = base_freq;
     wf_rows[last_row_id].width = width_hz;
+
+    if (!tx && birdie_cal_is_enabled()) {
+        birdie_cal_suppress_spectrum(data_buf, size, base_freq, width_hz);
+    }
 
     float    temp_buf[size];
     uint16_t hist[256] = {0};

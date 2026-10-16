@@ -45,6 +45,7 @@
 #include "dialog_field.h"
 #include "dialog_bands.h"
 #include "dialog_snake.h"
+#include "dialog_birdie_cal.h"
 #include "dialog_qth.h"
 #include "dialog_recorder.h"
 #include "dialog_wifi.h"
@@ -600,6 +601,7 @@ static const char *app_name(press_action_t a) {
         case ACTION_APP_PSK:        return dialog_psk_is_63() ? "PSK63" : "PSK31";
         case ACTION_APP_OLIVIA:     return "Olivia";
         case ACTION_APP_JTTY:       return "JTTY";
+        case ACTION_APP_BIRDIE_CAL: return "Birdie Cal";
         default:                    return NULL;    /* Modes menu: a menu, not an app */
     }
 }
@@ -753,6 +755,10 @@ void main_screen_start_app(press_action_t app_action) {
 
         case ACTION_APP_JTTY:
             dialog_construct(dialog_jtty, obj);
+            break;
+
+        case ACTION_APP_BIRDIE_CAL:
+            dialog_construct(dialog_birdie_cal, obj);
             break;
 
         default:

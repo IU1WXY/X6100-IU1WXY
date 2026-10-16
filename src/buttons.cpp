@@ -366,6 +366,7 @@ static button_data_t btn_modes   = make_app_btn("Modes", ACTION_APP_MODES);
 static button_data_t btn_cwt     = make_app_btn("CW\nTrainer", ACTION_APP_CWTRAINER);
 static button_data_t btn_field   = make_app_btn("Field\nOps", ACTION_APP_FIELD);
 static button_data_t btn_bands   = make_app_btn("Bands", ACTION_APP_BANDS);
+static button_data_t btn_birdie  = make_app_btn("Birdie\nCal", ACTION_APP_BIRDIE_CAL);
 
 /* RTTY */
 extern buttons_page_t buttons_page_rtty;
@@ -520,7 +521,7 @@ static buttons_page_t page_app_1 = {
     {&btn_app_p1, &btn_modes, &btn_cluster, &btn_swr, &btn_rec}
 };
 static buttons_page_t page_app_2 = {
-    {&btn_app_p2, &btn_settings, &btn_cwt, &btn_field}
+    {&btn_app_p2, &btn_settings, &btn_cwt, &btn_field, &btn_birdie}
 };
 static buttons_page_t page_app_3 = {
     {&btn_app_p3, &btn_bands, &btn_gps, &btn_screen_rec}   /* the MFK 3:3 one too */

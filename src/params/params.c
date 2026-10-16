@@ -45,6 +45,7 @@ params_t params = {
     .update_alert           = { .x = true,   .name = "update_alert" },
     .waterfall_center_line  = { .x = true,  .name = "waterfall_center_line" },
     .waterfall_zoom         = { .x = true,  .name = "waterfall_zoom" },
+    .birdie_filter          = { .x = true,  .name = "birdie_filter" },
     .mag_freq               = { .x = false,  .name = "mag_freq" },
     .mag_info               = { .x = false, .name = "mag_info" },
     .mag_alc                = { .x = true,  .name = "mag_alc" },
@@ -282,6 +283,7 @@ static bool params_load() {
         if (params_load_bool(&params.update_alert, name, i)) continue;
         if (params_load_bool(&params.waterfall_center_line, name, i)) continue;
         if (params_load_bool(&params.waterfall_zoom, name, i)) continue;
+        if (params_load_bool(&params.birdie_filter, name, i)) continue;
         if (params_load_bool(&params.spmode, name, i)) continue;
         if (params_load_float(&params.ft8_output_gain_offset, name, f)) continue;
         if (params_load_str(&params.ft8_cq_modifier, name, t)) continue;
@@ -417,6 +419,7 @@ static void params_save() {
     params_save_bool(&params.update_alert);
     params_save_bool(&params.waterfall_center_line);
     params_save_bool(&params.waterfall_zoom);
+    params_save_bool(&params.birdie_filter);
     params_save_bool(&params.spmode);
     params_save_float(&params.ft8_output_gain_offset);
     params_save_str(&params.ft8_cq_modifier);

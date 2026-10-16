@@ -1405,6 +1405,30 @@ static uint8_t make_spectrum_fill_peak(uint8_t row) {
     return row + 1;
 }
 
+static void birdie_filter_update_cb(lv_event_t *e) {
+    radio_update_birdie_notch();
+}
+
+static uint8_t make_birdie_filter(uint8_t row) {
+    lv_obj_t *obj = lv_label_create(grid);
+    lv_label_set_text(obj, "Birdie filter");
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_START, 0, 1, LV_GRID_ALIGN_CENTER, row, 1);
+
+    obj = lv_obj_create(grid);
+    lv_obj_set_size(obj, SMALL_3, ROW_H);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_START, 4, 3, LV_GRID_ALIGN_CENTER, row, 1);
+    lv_obj_set_style_bg_opa(obj, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_center(obj);
+
+    obj = switch_bool(obj, &params.birdie_filter);
+    lv_obj_add_event_cb(obj, birdie_filter_update_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(obj, change_bg_opa_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(obj, change_bg_opa_cb, LV_EVENT_DEFOCUSED, NULL);
+    lv_obj_set_width(obj, SMALL_3 - 30);
+    return row + 1;
+}
+
 static uint8_t make_cluster_spots_wf(uint8_t row) {
     lv_obj_t *obj;
 
@@ -4446,6 +4470,7 @@ static void make_display_page() {
         row = make_spectrum_fill_peak(row);
         row = make_param_switch(row, "Fill gradient", cfg_sm.p_spectrum_fill_gradient);
         row = make_param_slider(row, "Height", &spectrum_height_slider);   /* live, at each step */
+        row = make_birdie_filter(row);
     }
     card_end(row);
 

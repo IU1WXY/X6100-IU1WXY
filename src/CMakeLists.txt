@@ -9,7 +9,7 @@ target_sources(${PROJECT_NAME} PUBLIC
     meter.c band_info.cpp tx_info.c
     audio.c mfk.cpp cw.cpp cw_decoder.c cw_parse.c panel.cpp
     rtty.c screenshot.c screen_rec.c avi_writer.c backlight.c gps.c cat.cpp wfview_server.c remote_server.cpp
-    dialog.c dialog_settings.cpp dialog_swrscan.c
+    dialog.c dialog_settings.cpp dialog_swrscan.c dialog_birdie_cal.c
     dialog_ft8.c dialog_freq.c dialog_gps.c dialog_msg_cw.c
     dialog_msg_voice.c dialog_recorder.c dialog_qth.c station.c
     dialog_channels.c

@@ -32,6 +32,7 @@
 #include "waterfall.h"
 #include "keypad.h"
 #include "params/params.h"
+#include "dialog_birdie_cal.h"
 #include "cfg/cfg_api.h"
 #include "audio.h"
 #include "cw.h"
@@ -186,6 +187,7 @@ int main(void) {
     vol->state = VOL_STATE_EDIT;
 
     params_init();
+    birdie_cal_load();
     sstv_resources_init();
     display_settings_check();
     audio_set_play_vol(params.play_gain_db_f.x);

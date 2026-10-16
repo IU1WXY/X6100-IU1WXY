@@ -71,6 +71,7 @@ typedef enum {
     ACTION_APP_PSK,     /* 121, appended after SNAKE: PSK31/PSK63 (upstream's 114/115 are MODES/CWTRAINER here) */
     ACTION_APP_OLIVIA,  /* 122 */
     ACTION_APP_JTTY,    /* 123, appended after OLIVIA */
+    ACTION_APP_BIRDIE_CAL, /* 124: Birdie & internal spur auto-calibration */
 } press_action_t;
 
 typedef enum {
@@ -119,6 +120,7 @@ typedef struct {
     params_bool_t       update_alert;
     params_bool_t       waterfall_center_line;
     params_bool_t       waterfall_zoom;
+    params_bool_t       birdie_filter;
     params_bool_t       mag_freq;
     params_bool_t       mag_info;
     params_bool_t       mag_alc;

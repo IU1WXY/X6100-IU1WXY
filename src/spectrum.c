@@ -21,6 +21,7 @@
 #include "waterfall.h"
 #include "rtty.h"
 #include "scheduler.h"
+#include "dialog_birdie_cal.h"
 #include "styles.h"
 #include "theme.h"
 #include "util.h"
@@ -620,6 +621,12 @@ void spectrum_data(float *data_buf, uint16_t size, bool tx, uint32_t base_lo_fre
         int32_t df = base_lo_freq - cur_base_lo_freq;
         cur_base_lo_freq = base_lo_freq;
         shift_peaks(df);
+    }
+
+    if (!tx && birdie_cal_is_enabled()) {
+        uint32_t eff_center = base_lo_freq ? base_lo_freq : (fg_freq + mode_lo_offset - if_shift + rit);
+        uint32_t span = (zoom_factor > 0) ? (width_hz / zoom_factor) : width_hz;
+        birdie_cal_suppress_spectrum(data_buf, size, eff_center, span);
     }
 
     pthread_mutex_lock(&data_mux);

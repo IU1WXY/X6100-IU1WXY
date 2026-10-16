@@ -49,6 +49,7 @@ radio_state_t radio_get_state();
  */
 void radio_set_freq(int32_t freq);
 bool radio_check_freq(int32_t freq);
+void radio_update_birdie_notch(void);
 
 x6100_vfo_t radio_toggle_vfo();
 

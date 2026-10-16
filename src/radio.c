@@ -45,6 +45,7 @@
 #include "dialog_msg_voice.h"
 #include "msg.h"
 #include "base_guard.h"
+#include "dialog_birdie_cal.h"
 
 /*********************
  *      DEFINES
@@ -466,6 +467,58 @@ void radio_set_rx_dsp_off(bool off) {
     radio_unlock();
 }
 
+static bool s_birdie_notch_active = false;
+
+void radio_update_birdie_notch(void) {
+    if (state == RADIO_TX || state == RADIO_OFF || state == RADIO_POWEROFF) {
+        return;
+    }
+
+    if (!birdie_cal_is_enabled()) {
+        if (s_birdie_notch_active) {
+            s_birdie_notch_active = false;
+            radio_lock();
+            x6100_control_dnf_set(param_i_get(cfg_dnf));
+            x6100_control_dnf_center_set(param_i_get(cfg_dnf_center));
+            x6100_control_dnf_width_set(param_i_get(cfg_dnf_width));
+            x6100_control_dnf_update_set(param_i_get(cfg_dnf_auto));
+            radio_unlock();
+        }
+        return;
+    }
+
+    int32_t cur_freq = cparam_i_get(cfg_fg_freq);
+    int32_t cur_mode = cparam_i_get(cfg_cur_mode);
+    int32_t low_filter = cparam_i_get(cfg_cur_filter_low);
+    int32_t high_filter = cparam_i_get(cfg_cur_filter_high);
+
+    uint16_t notch_hz = 0;
+    if (birdie_cal_check_audio((uint32_t)cur_freq, cur_mode, low_filter, high_filter, &notch_hz)) {
+        radio_lock();
+        x6100_control_dnf_center_set(notch_hz);
+        x6100_control_dnf_width_set(40);
+        x6100_control_dnf_update_set(false);
+        x6100_control_dnf_set(true);
+        radio_unlock();
+        s_birdie_notch_active = true;
+    } else if (cur_mode != x6100_mode_cw && cur_mode != x6100_mode_cwr) {
+        /* In SSB/AM/FM, Auto-DNF automatically tracks & notches any moving or unexpected carrier whistles */
+        radio_lock();
+        x6100_control_dnf_update_set(true);
+        x6100_control_dnf_set(true);
+        radio_unlock();
+        s_birdie_notch_active = true;
+    } else if (s_birdie_notch_active) {
+        s_birdie_notch_active = false;
+        radio_lock();
+        x6100_control_dnf_set(param_i_get(cfg_dnf));
+        x6100_control_dnf_center_set(param_i_get(cfg_dnf_center));
+        x6100_control_dnf_width_set(param_i_get(cfg_dnf_width));
+        x6100_control_dnf_update_set(param_i_get(cfg_dnf_auto));
+        radio_unlock();
+    }
+}
+
 x6100_vfo_t radio_toggle_vfo() {
     x6100_vfo_t new_vfo = (param_i_get(cfg_band_current_vfo) == X6100_VFO_A) ? X6100_VFO_B : X6100_VFO_A;
 
@@ -619,6 +672,7 @@ static void on_vfo_freq_change(Subject *subj, void *user_data) {
     }
     WITH_RADIO_LOCK(x6100_control_vfo_freq_set(vfo, new_val - shift));
     LV_LOG_USER("Radio set vfo %i freq=%i (%i)", vfo, new_val, new_val - shift);
+    radio_update_birdie_notch();
 }
 
 static void on_vfo_mode_change(Subject *subj, void *user_data) {
@@ -628,7 +682,8 @@ static void on_vfo_mode_change(Subject *subj, void *user_data) {
         return;
     }
     WITH_RADIO_LOCK(x6100_control_vfo_mode_set(vfo, new_val));
-    LV_LOG_USER("Radio set vfo %i mode=%i", vfo, new_val);;
+    LV_LOG_USER("Radio set vfo %i mode=%i", vfo, new_val);
+    radio_update_birdie_notch();
 }
 
 /* AGC AUTO in CW with the decoder on goes FAST: as AUTO recovers after a station stops, the rising
@@ -747,6 +802,7 @@ static void on_low_filter_change(Subject *subj, void *user_data) {
     cmd_changed(x6100_filter1_low, low);
     cmd_changed(x6100_filter2_low, low2);
     radio_unlock();
+    radio_update_birdie_notch();
 }
 
 static void on_high_filter_change(Subject *subj, void *user_data) {
@@ -770,6 +826,7 @@ static void on_high_filter_change(Subject *subj, void *user_data) {
     cmd_changed(x6100_filter1_high, high);
     cmd_changed(x6100_filter2_high, high2);
     radio_unlock();
+    radio_update_birdie_notch();
 }
 
 static void on_change_comp_ratio(Subject *subj, void *user_data) {
@@ -1010,6 +1067,7 @@ static bool radio_tick() {
                     if (notify_rx_tx) {
                         notify_rx_tx(false);
                     }
+                    radio_update_birdie_notch();
                 } else {
                     // printf("%d, %d\n", pack->tx_power, pack->alc_level);
                     tx_info_update(pack->tx_power * 0.1f, pack->vswr * 0.1f, pack->alc_level * 0.1f);
