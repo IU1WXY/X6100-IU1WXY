@@ -1,0 +1,162 @@
+% rebase('base.html', title='Wavelog')
+<h2><svg class="i"><use href="#i-upload"/></svg>Wavelog</h2>
+<p class="sub">
+  Every FT8, FT4 and JS8 QSO logged on the radio is <b>always</b> kept on the SD card. With the upload on, new QSOs are
+  also sent to your Wavelog logbook as soon as the radio can reach it, and wait in line while it cannot
+  (Wi-Fi off, server down). With the upload off nothing is sent.
+</p>
+
+<section class="dp-card">
+  <div class="dp-head"><span class="dp-ico"><svg class="i"><use href="#i-server"/></svg></span><div><h3>Connection</h3><p>Your Wavelog server on the home network</p></div></div>
+  <div class="dp-body">
+    <p><label><input type="checkbox" id="wl-enabled"> Upload new QSOs to Wavelog</label></p>
+    <label for="wl-url">Wavelog URL</label>
+    <input id="wl-url" type="text" placeholder="http://192.168.1.20/wavelog">
+    <p class="sub">Address of your Wavelog, without <code>/index.php</code> and without a trailing slash. Use <code>http://</code> on the home network.</p>
+    <label for="wl-key">API key</label>
+    <input id="wl-key" type="password" autocomplete="off">
+    <p class="sub">Wavelog: user menu, API keys. It needs write rights. Leave the field empty to keep the saved key.</p>
+    <label for="wl-station">Station profile ID</label>
+    <div class="row">
+      <input id="wl-station" type="number" min="1" step="1" style="max-width: 9em;">
+      <select id="wl-station-select" style="display: none;"></select>
+    </div>
+    <p class="sub">The number of the station location in Wavelog. <i>Test connection</i> lists them to pick from.</p>
+    <p><label><input type="checkbox" id="wl-insecure"> Accept a self-signed certificate (only for https)</label></p>
+    <div class="actions">
+      <button id="wl-test" type="button"><svg class="i"><use href="#i-sync"/></svg>Test connection</button>
+      <button id="wl-save" type="button" class="primary"><svg class="i"><use href="#i-upload"/></svg>Save</button>
+    </div>
+    <p id="wl-msg"></p>
+  </div>
+</section>
+
+<section class="dp-card">
+  <div class="dp-head"><span class="dp-ico"><svg class="i"><use href="#i-list"/></svg></span><div><h3>Status</h3><p>Updates every few seconds</p></div></div>
+  <div class="dp-body">
+    <table id="wl-status">
+      <tr><td>Waiting to be sent</td><td id="st-pending">-</td></tr>
+      <tr><td>Sent</td><td id="st-uploaded">-</td></tr>
+      <tr><td>Already in Wavelog (duplicates)</td><td id="st-dupes">-</td></tr>
+      <tr><td>Skipped (no ADIF mode)</td><td id="st-skipped">-</td></tr>
+      <tr><td>Last success</td><td id="st-ok">-</td></tr>
+      <tr><td>Last problem</td><td id="st-error">-</td></tr>
+      <tr><td>Last answer of Wavelog</td><td><code id="st-resp">-</code></td></tr>
+    </table>
+    <div id="st-rejected"></div>
+  </div>
+</section>
+
+<section class="dp-card">
+  <div class="dp-head"><span class="dp-ico"><svg class="i"><use href="#i-sync"/></svg></span><div><h3>Send again</h3><p>Wavelog skips the QSOs it already has</p></div></div>
+  <div class="dp-body">
+    <label for="wl-n">Send the last N QSOs of the radio's log once more</label>
+    <div class="row">
+      <input id="wl-n" type="number" min="1" max="5000" value="10" style="max-width: 9em;">
+      <button id="wl-resend" type="button">Send again</button>
+    </div>
+  </div>
+</section>
+
+<script>
+function msg(text, ok) {
+  const el = $("#wl-msg");
+  el.text(text);
+  el.css("color", ok === true ? "green" : ok === false ? "crimson" : "");
+}
+
+function errText(xhr, fallback) {
+  return (xhr.responseJSON && xhr.responseJSON.msg) || fallback;
+}
+
+function showStatus(s) {
+  $("#st-pending").text(s.enabled ? s.pending : "upload is off");
+  $("#st-uploaded").text(s.uploaded);
+  $("#st-dupes").text(s.dupes);
+  $("#st-skipped").text(s.skipped);
+  $("#st-ok").text(s.last_ok || "-");
+  $("#st-error").text(s.last_error || "-").css("color", s.last_error ? "crimson" : "");
+  $("#st-resp").text(s.last_response || "-");
+  const box = $("#st-rejected");
+  box.empty();
+  if (s.rejected && s.rejected.length) {
+    box.append($("<p>").text("Rejected by Wavelog (not sent again):"));
+    const ul = $("<ul>");
+    s.rejected.forEach(function (r) {
+      ul.append($("<li>").text(r.time + "  " + r.call + "  " + r.why));
+    });
+    box.append(ul);
+  }
+}
+
+function fillForm(s) {
+  $("#wl-enabled").prop("checked", !!s.enabled);
+  $("#wl-url").val(s.url || "");
+  $("#wl-key").val("").attr("placeholder", s.has_key ? "saved" : "");
+  $("#wl-station").val(s.station_id || "");
+  $("#wl-insecure").prop("checked", !!s.insecure_tls);
+}
+
+function payload() {
+  return {
+    enabled: $("#wl-enabled").is(":checked"),
+    url: $("#wl-url").val().trim(),
+    key: $("#wl-key").val().trim(),
+    station_id: $("#wl-station").val().trim(),
+    insecure_tls: $("#wl-insecure").is(":checked"),
+  };
+}
+
+function post(url, data) {
+  return $.ajax({url: url, method: "POST", contentType: "application/json", data: JSON.stringify(data)});
+}
+
+$.get("/api/wavelog", function (s) { fillForm(s); showStatus(s); })
+  .fail(function () { msg("Could not load the saved settings.", false); });
+
+setInterval(function () {
+  $.get("/api/wavelog", showStatus);
+}, 5000);
+
+$("#wl-station-select").on("change", function () {
+  const v = $(this).val();
+  if (v) $("#wl-station").val(v);
+});
+
+$("#wl-save").on("click", function () {
+  post("/api/wavelog", payload())
+    .done(function (s) {
+      fillForm(s);
+      showStatus(s);
+      msg(s.enabled ? "Saved. New QSOs are sent from now on." : "Saved. The upload is off.", true);
+    })
+    .fail(function (xhr) { msg(errText(xhr, "Saving failed"), false); });
+});
+
+$("#wl-test").on("click", function () {
+  const d = payload();
+  msg("Testing...", null);
+  post("/api/wavelog/test", {url: d.url, key: d.key, insecure_tls: d.insecure_tls})
+    .done(function (r) {
+      const sel = $("#wl-station-select");
+      sel.empty();
+      if (r.stations.length) {
+        sel.append($("<option>").val("").text("- choose station -"));
+        r.stations.forEach(function (s) {
+          sel.append($("<option>").val(s.id).text(s.id + " - " + (s.name || s.call) + " (" + s.call + ")"));
+        });
+        sel.show();
+      } else {
+        sel.hide();
+      }
+      msg("Connection OK, " + r.stations.length + " station location(s). Pick one, then Save.", true);
+    })
+    .fail(function (xhr) { msg(errText(xhr, "Test failed"), false); });
+});
+
+$("#wl-resend").on("click", function () {
+  post("/api/wavelog/resend", {n: parseInt($("#wl-n").val(), 10)})
+    .done(function (s) { showStatus(s); msg("The QSOs will be sent again.", true); })
+    .fail(function (xhr) { msg(errText(xhr, "Failed"), false); });
+});
+</script>

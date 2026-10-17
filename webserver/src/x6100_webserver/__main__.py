@@ -16,6 +16,7 @@ except ImportError:   # python built without SSL
     ssl = None
 
 from . import apps
+from . import wavelog
 from . import settings
 
 
@@ -143,6 +144,9 @@ def serve():
     settings.CLUSTER_CONF = opts.cluster_conf
     settings.WFVIEW_CONF = opts.wfview_conf
     settings.CHANNELS_FILE = opts.channels_file
+    wavelog.register(apps.app)
+    if not (opts.debug and "BOTTLE_CHILD" not in os.environ):   # not in the reloader's parent
+        wavelog.start()
     if opts.https_port and not (opts.debug and "BOTTLE_CHILD" not in os.environ):   # not in the reloader's parent
         start_https(apps.app, opts.host, opts.https_port, opts.cert_dir)
     settings.HTTP_PORT = opts.port
