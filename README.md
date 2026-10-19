@@ -2,12 +2,6 @@
 
 <p align="center"><i>by Giovanni Ricciardi IU1WXY</i> · <a href="https://x6100-link.it"><b>x6100-link.it</b></a></p>
 
-<p align="center">Heartfelt thanks to <b>Oleg Belousov R1CBU</b>, <b>Georgy Dyuldin R2RFE</b>,
-<b>1KO125</b> by <b>Hany El Imam / TheMurusTeam</b> and the whole <b>X6100 community</b>.<br>
-Thanks to <b>Fabio IN3FOB</b> for the beta testing, but above all
-to <b>Leo CT7AUE</b>, <b>Angelo IU2VWK</b>, <b>Gianluca IW5DUA</b> and <b>Emilio IU8QTM</b>
-for their neverending patience, time and advices.</p>
-
 A complete microSD firmware for the Xiegu X6100: every digital mode on the
 radio (FT8, FT4, FT2, JS8, WSPR, PSK31, PSK63, Olivia, JTTY, RTTY, SSTV,
 WeFax, NavTex), a CW decoder and keyboard, DX cluster spots on the waterfall,
@@ -68,28 +62,6 @@ programs x6100-js8d, x6100-jttyd and x6100-wsprd, the LGPL files of the
 interface, the kernel configuration and patches, the WiFi driver patches, the
 buildroot tree and its legal-info). Its README says how each part maps to the
 image. The same source can be requested at info@x6100-link.it.
-
-## Credits
-
-**Giovanni Ricciardi IU1WXY** designed and wrote this firmware: the rewrite of
-the GUI and the theme system, the X6100 Link app and the remote control,
-Field Ops and Bands, the DX Cluster, WSPR, SSTV TX, RTTY and WeFax TX, the CW
-Keyboard, the integration of JS8, SSTV, WeFax and NavTex, Bluetooth CAT,
-headphones and keyboards, the wfview server, and the microSD image.
-
-Standing on the work of: the **R1CBU** GUI by Oleg Belousov R1CBU and Georgy
-Dyuldin R2RFE ([gdyuldin/x6100_gui](https://github.com/gdyuldin/x6100_gui)),
-**1KO125** by Hany El Imam / TheMurusTeam (WeFax, NavTex, SSTV decoders),
-SP2KMO and **randal007** (openx6100: Bluetooth devices, PSK31 and Olivia; the
-X6100 JS8 app), **JS8** on the JS8Call engine (Jordan Sherer KN4CRD,
-JS8Call-improved), **wsprd** from WSJT-X (K1JT, K9AN), **JTTY** from WSJT-X
-3.2 (K1JT and the WSJT-X team), the radio control library and the
-AetherX6100Buildroot image by Georgy Dyuldin, **OH1W** (the idea behind the
-birdie calibration), and the **EiBi**
-broadcast list by Eike Bierwirth. Libraries: LVGL, cJSON, liquid-dsp, PFFFT,
-ft8_lib, libpng, bottle, PulseAudio, BlueZ. Fonts: Roboto, DejaVu, Share Tech,
-Arial. Skimmer spots come from the Reverse Beacon Network and its skimmer
-operators. Hardware: Xiegu.
 
 ## Privacy
 
