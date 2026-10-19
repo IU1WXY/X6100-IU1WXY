@@ -1,0 +1,79 @@
+X6100 IU1WXY firmware: terms of use
+
+Copyright (c) 2026 Giovanni Ricciardi IU1WXY. All rights reserved.
+
+1. What this covers
+
+These terms cover the X6100 IU1WXY firmware: the radio interface program, its
+scripts and data written by Giovanni Ricciardi IU1WXY ("the IU1WXY software").
+They apply from version 0.128. In the source, the IU1WXY software is every
+file with the notice "SPDX-License-Identifier: LicenseRef-IU1WXY-Terms", and
+every other file of the firmware that has no licence notice of its own and is
+not part of the software listed in section 5.
+
+The firmware image also contains software by other authors under their own
+licences (see section 5). Those licences are not changed by these terms.
+
+2. What you may do
+
+- Install and use the firmware, free of charge, on Xiegu X6100 radios you own or use.
+- Make copies of the image for that purpose and keep backups.
+- Pass the unmodified image to other X6100 owners, free of charge, with these terms.
+
+3. What you may not do
+
+- Sell the firmware, or include it in a product or service you sell, without
+  written permission.
+- Modify, decompile or disassemble the IU1WXY software, or publish works derived
+  from it, except where section 5 or the law allows it.
+- Remove or change the copyright notices, the name or the credits.
+- Present the IU1WXY software, or parts of it, as your own work.
+
+4. No warranty
+
+The firmware is provided "as is", without any warranty. You use it at your own
+risk. IU1WXY is not liable for damage to the radio, to other equipment, or for
+any other loss arising from its use. Transmitting is your responsibility under
+your licence.
+
+5. Other software in the image
+
+The image contains software under open licences. The main parts:
+
+| Software | Licence | Your rights |
+|---|---|---|
+| Linux kernel 6.1.82 with the X6100 patches and configuration, rtl8723bu WiFi driver with our patches, BusyBox 1.36.1, U-Boot 2023.01 and the other GPL-2.0 system packages | GPL-2.0 (some GPL-2.0+) | full source at the address below |
+| x6100-js8d (JS8 modem, on js8core by Jordan Sherer KN4CRD and the JS8Call contributors), x6100-jttyd (JTTY, from WSJT-X by K1JT and the WSJT-X team), x6100-wsprd (WSPR decoder by K1JT and K9AN, via rtlsdr-wsprd by VA2GKA): separate programs | GPL-3.0 | full source at the address below |
+| Bash, readline, less, nano, parted, dosfstools, gsl and the other GPL-3.0 system packages | GPL-3.0+ | full source at the address below |
+| aether-x6100-control (radio control library, Georgy Dyuldin), glibc, PulseAudio, GLib, BlueZ libraries, libnm, ALSA, libsndfile, FFmpeg and the other LGPL libraries | LGPL-2.1+ (some LGPL-3.0+) | linked as shared libraries: you may replace them with modified versions and reverse engineer the parts needed to debug such changes; source at the address below |
+| Files of the radio interface program still under LGPL-2.1-or-later: src/bt_dev.c, src/bt_dev.h (from openx6100 by SP2KMO and randal007), src/dialog_psk.c/.h, src/dialog_olivia.c/.h, src/psk_rx.c, src/psk_tx.c, src/olivia_app.c, src/olivia_tx.c (from SP2KMO's OpenX6100 PSK31/Olivia work), src/olivia_resamp.c/.h (also built into x6100-jttyd), the LGPL files in src/js8 (some also built into x6100-js8d), lv_drv_conf.h | LGPL-2.1-or-later | source at the address below |
+| LVGL 8.3 (gdyuldin fork), lv_drivers, ft8_lib (Karlis Goba), liquid-dsp (Joseph Gaeddert), cJSON (Dave Gamble), cty.dat (Jim Reisert AD1C), jQuery, mp4-muxer, siimple-icons, bottle, bottle-sqlite, and other MIT/X11 system packages | MIT | notices in THIRD_PARTY_LICENSES |
+| PFFFT (Julien Pommier, Hayati Ayguen, Dario Mambro), CRC++ (Daniel Bahr), speex, opus, libvorbis, OpenSSH, wpa_supplicant and the other BSD packages | BSD | notices in THIRD_PARTY_LICENSES |
+| Eigen (in js8core) | MPL-2.0 | source at the address below |
+| Fonts: DejaVu (Bitstream Vera licence), Roboto (Apache-2.0), Share Tech and Share Tech Mono (Carrois Type Design, SIL OFL 1.1), Font Awesome Free icons (SIL OFL 1.1) | as listed | licence texts in THIRD_PARTY_LICENSES |
+| EiBi shortwave schedule (Eike Bierwirth) | free use and distribution | see THIRD_PARTY_LICENSES |
+| Realtek WiFi and Bluetooth firmware (linux-firmware) | redistributable binary | see the package licence |
+
+The complete list of packages in the image, each with its version and licence,
+and the full licence texts are in THIRD_PARTY_LICENSES, installed on the radio
+in /usr/share/x6100/licenses/ together with these terms and the licence files
+of every package (/usr/share/x6100/licenses/packages/).
+
+Address of the source code: the Releases page of
+https://github.com/IU1WXY/X6100-IU1WXY (file
+X6100-IU1WXY-v<version>-gpl-sources.tar.gz). It holds, for each version, the
+source of the GPL and LGPL parts listed above with our patches and build
+files, the kernel configuration and the list of upstream source archives
+used. The same source can also be requested at info@x6100-link.it.
+
+Nothing in these terms limits the rights those licences give you for that
+software.
+
+6. Data sent to x6100-link.it
+
+What the radio sends and why is described in the privacy notice at
+https://x6100-link.it/privacy.php.
+
+7. Contact
+
+info@x6100-link.it
