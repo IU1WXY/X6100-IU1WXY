@@ -10,6 +10,26 @@ the internet or over the air (ARDOP or VARA HF compatible), CW keyer and
 decoder, DX cluster, Broadcast, SOTA/POTA/WWFF/GMA, a 3D waterfall, themes, a
 web configurator and the X6100 Link app for Android.
 
+<p align="center">
+<img src="screenshots/radio-home-procarbon.png" width="49%" alt="Home screen, Pro Carbon theme">
+<img src="screenshots/radio-apps-menu.png" width="49%" alt="Apps menu">
+<img src="screenshots/radio-hell.png" width="49%" alt="Hellschreiber">
+<img src="screenshots/radio-winlink.png" width="49%" alt="Winlink">
+</p>
+
+## Companion app: X6100 Link for Android
+
+The firmware has a companion app, **X6100 Link**, for Android phones and
+tablets: the radio's controls, spectrum and waterfall, audio both ways, FT8,
+JS8 and the other digital modes, FreeDV on the phone, Winlink mail, the log,
+DX cluster and SOTA/POTA, over Wi-Fi, the phone's hotspot or a VPN.
+App page, docs and screenshots: **[github.com/IU1WXY/X6100-Link](https://github.com/IU1WXY/X6100-Link)**.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/IU1WXY/X6100-Link/HEAD/screenshots/tablet-1-ft8.jpg" width="64%" alt="X6100 Link on a tablet">
+<img src="https://raw.githubusercontent.com/IU1WXY/X6100-Link/HEAD/screenshots/phone-1-ft8.jpg" width="24%" alt="X6100 Link on a phone">
+</p>
+
 This repository holds the releases only: the microSD image, the GPL sources
 of each version, the terms of use and the third-party licences.
 
