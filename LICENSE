@@ -9,10 +9,10 @@ scripts and data written by Giovanni Ricciardi IU1WXY ("the IU1WXY software").
 They apply from version 0.128. In the source, the IU1WXY software is every
 file with the notice "SPDX-License-Identifier: LicenseRef-IU1WXY-Terms", and
 every other file of the firmware that has no licence notice of its own and is
-not part of the software listed in section 6.
+not part of the software listed in section 7.
 
 The firmware image also contains software by other authors under their own
-licences (see section 6). Those licences are not changed by these terms.
+licences (see section 7). Those licences are not changed by these terms.
 
 2. What you may do
 
@@ -24,11 +24,19 @@ licences (see section 6). Those licences are not changed by these terms.
 
 - Sell the firmware, or include it in a product or service you sell, without
   written permission.
-- Modify, decompile or disassemble the IU1WXY software, or publish works derived
-  from it, except where section 6 or the law allows it.
+- Modify, decompile, disassemble or otherwise reverse engineer the IU1WXY
+  software, or analyse it (its code, behaviour, traffic or data) in order to
+  reconstruct, re-implement or clone it, its algorithms, protocols or data
+  formats, or publish works derived from it, except where section 7 or the law
+  allows it.
+- Copy or imitate, in whole or in part, the visual design of the IU1WXY
+  firmware and apps: screen layouts and arrangements, menus and tiles,
+  graphic elements, icons, colour schemes and other distinctive parts of
+  their look and feel, in any product, firmware, app or website.
 - Remove or change the copyright notices, the name or the credits.
 - Present the IU1WXY software, or parts of it, as your own work.
 - Reproduce the screens of the IU1WXY software, as set out in section 4.
+- Reproduce its functions, protocols or names, as set out in section 5.
 
 4. Screens and visual design
 
@@ -46,57 +54,91 @@ You may still take and share screenshots, photos and videos of the firmware
 running on a radio, to show it, review it, teach it or report a problem,
 as long as it is clear that they show the X6100 IU1WXY firmware.
 
-5. No warranty
+5. Functions, protocols, names and documentation
+
+Besides its code and its screens, the IU1WXY software is made of IU1WXY's
+work and know-how in what it does and how it does it: its functions and
+features, their combination, their behaviour and operating logic, the way it
+controls the radio, its workflows, and the protocols, commands and data
+formats it defines (among them the remote control interface used by
+X6100 Link and by other programs, the GUI control socket, and its package
+formats and their signatures). Its names (X6100 IU1WXY, X6100 Link and the names it
+gives to its functions), the manual and every other piece of its
+documentation are part of it too.
+
+Without written permission you may not:
+
+- use the IU1WXY software, its documentation, its screens or its behaviour as
+  a model, specification or reference to develop, or to have others develop,
+  firmware, software, apps, services or devices that reproduce its functions,
+  in whole or in a recognisable part;
+- implement its protocols, commands or data formats in other software or
+  devices, except to use them with your own radio for your own use;
+- copy or translate the manual or the documentation, in whole or in part,
+  except short quotations with the source given;
+- use its names, or names likely to be confused with them, for other
+  products or services.
+
+These restrictions apply as far as the law allows. They do not limit the
+rights the law gives you that a contract cannot take away, such as observing,
+studying or testing how the software works while you use it as these terms
+allow, or what the law permits for interoperability.
+
+6. No warranty
 
 The firmware is provided "as is", without any warranty. You use it at your own
 risk. IU1WXY is not liable for damage to the radio, to other equipment, or for
 any other loss arising from its use. Transmitting is your responsibility under
 your licence.
 
-6. Other software in the image
+7. Other software in the image
 
 The image contains software under open licences. The main parts:
 
 | Software | Licence | Your rights |
 |---|---|---|
-| Linux kernel 6.1.82 with the X6100 patches and configuration, rtl8723bu WiFi driver with our patches, BusyBox 1.36.1, U-Boot 2023.01 and the other GPL-2.0 system packages | GPL-2.0 (some GPL-2.0+) | full source at the address below |
-| x6100-js8d (JS8 modem, on js8core by Jordan Sherer KN4CRD and the JS8Call contributors), x6100-jttyd (JTTY, from WSJT-X by K1JT and the WSJT-X team), x6100-wsprd (WSPR decoder by K1JT and K9AN, via rtlsdr-wsprd by VA2GKA): separate programs | GPL-3.0 | full source at the address below |
-| Bash, readline, less, nano, parted, dosfstools, gsl and the other GPL-3.0 system packages | GPL-3.0+ | full source at the address below |
-| aether-x6100-control (radio control library, Georgy Dyuldin), glibc, PulseAudio, GLib, BlueZ libraries, libnm, ALSA, libsndfile, FFmpeg and the other LGPL libraries | LGPL-2.1+ (some LGPL-3.0+) | linked as shared libraries: you may replace them with modified versions and reverse engineer the parts needed to debug such changes; source at the address below |
-| GPL-3.0 modem source incorporated in the radio interface program and built into its separate helper programs: src/js8 with third-party/js8core (JS8, on the JS8Call engine by Jordan Sherer KN4CRD and contributors; also x6100-js8d), src/wspr (WSPR decoder by K1JT and K9AN; also x6100-wsprd), src/jtty (JTTY from WSJT-X by K1JT and the WSJT-X team; built into x6100-jttyd) | GPL-3.0 | full source at the address below |
-| LVGL 8.3 (gdyuldin fork), lv_drivers, ft8_lib (Karlis Goba), liquid-dsp (Joseph Gaeddert), cJSON (Dave Gamble), cty.dat (Jim Reisert AD1C), mp4-muxer, siimple-icons, bottle, bottle-sqlite, and other MIT/X11 system packages | MIT | notices in THIRD_PARTY_LICENSES |
-| PFFFT (Julien Pommier, Hayati Ayguen, Dario Mambro), CRC++ (Daniel Bahr), speex, opus, libvorbis, OpenSSH, wpa_supplicant and the other BSD packages | BSD | notices in THIRD_PARTY_LICENSES |
-| Eigen (in js8core) | MPL-2.0 | source at the address below |
-| Fonts: DejaVu (Bitstream Vera licence), Roboto (Apache-2.0), Share Tech and Share Tech Mono (Carrois Type Design, SIL OFL 1.1), Font Awesome Free icons (SIL OFL 1.1) | as listed | licence texts in THIRD_PARTY_LICENSES |
-| EiBi shortwave schedule (Eike Bierwirth) | free use and distribution | see THIRD_PARTY_LICENSES |
+| Linux kernel 6.1.82 with the X6100 patches and configuration, rtl8723bu WiFi driver with our patches, BusyBox 1.36.1, U-Boot 2026.07 and the other GPL-2.0 system packages | GPL-2.0 (some GPL-2.0+) | full source at the address below |
+| libsstv-denoise.so and its model file (SSTV ML denoiser), libsstv-callsign and libwefax-postproc, all by Hany El Imam 1KO125 (TheMurusTeam, github.com/TheMurusTeam/sstv-ml-denoiser), glibc, ALSA, PulseAudio, GLib, BlueZ libraries, libnm, libsndfile, LAME, mpg123 and the other LGPL libraries | LGPL-2.1+ (LAME: LGPL-2.0+) | linked as separate shared libraries: you may replace them with modified versions and reverse engineer the parts needed to debug such changes; source at the address below |
+| codec2 (David Rowe and contributors), used by FreeDV as a separate shared library | LGPL-2.1 | source at the address below |
+| JS8 dictionary (js8/dictionary.txt, from JS8Call by Jordan Sherer KN4CRD), a separate data file read by js8ngd | GPL-3.0 | licence and credit in /usr/share/x6ng/js8/LICENSE.js8-dictionary; the file is its own source |
+| Pat Winlink client (Martin Hebnes Pedersen LA5NTA), ardopcf (ARDOP modem; Rick Muething, John Wiseman, Peter LaRue) and XARA (VARA HF compatible modem; x0rro), separate programs | MIT and their own licences | licence texts on the About pages of x6ng and in /usr/share/licenses/x6ng/ |
+| LVGL 8.3, cJSON (Dave Gamble), ft8_lib (Karlis Goba, with our changes), liquid-dsp (Joseph Gaeddert), Lua, libinput, libdrm, expat, jansson, libxml2 and the other MIT packages | MIT | notices in /usr/share/x6100/licenses/packages/ and /usr/share/licenses/x6ng/ |
+| KISS FFT (Mark Borgerding), fsck_msdos (FreeBSD), wpa_supplicant, speex, opus, libvorbis, gpsd and the other BSD packages | BSD | notices in /usr/share/x6100/licenses/packages/ and /usr/share/licenses/x6ng/ |
+| OpenSSL 1.1.1, curl, zlib, libpng, Python 3.11, SQLite, Boost, ICU, NSS/NSPR (MPL-2.0), ntp, iw, wireless-regdb | their own licences | notices in /usr/share/x6100/licenses/packages/; MPL-2.0 source at the address below |
+| Fonts: DejaVu (Bitstream Vera licence), Montserrat (SIL OFL 1.1), Font Awesome Free icons (CC BY 4.0, font SIL OFL 1.1) | as listed | licence texts in /usr/share/licenses/x6ng/ |
+| EiBi shortwave schedule (Eike Bierwirth), downloaded on request | free use and distribution | see the About pages of x6ng |
 | Realtek WiFi and Bluetooth firmware (linux-firmware) | redistributable binary | see the package licence |
 
-The PSK31/PSK63, Olivia, Bluetooth-device, audio-resampler (olivia_resamp) and
-LVGL display-driver configuration files of the radio interface program are
-IU1WXY's own code under the terms above, not third-party software. Only the
-GPL-3.0 modem source listed in the table (JS8, WSPR, JTTY) and the libraries
-and system packages above are by other authors.
+The radio interface program (x6ng) and the radio control library (x6radio)
+are IU1WXY's own code under the terms above and contain no GPL or LGPL code.
+Built into x6ng are only the MIT and BSD components LVGL, cJSON, ft8_lib and
+KISS FFT, with the fonts and icons listed in the table; their notices are in
+/usr/share/licenses/x6ng/ and on the About pages of x6ng. At run time x6ng uses
+the shared libraries listed in the table and loads the libraries by Hany El Imam
+(libsstv-denoise.so with its model file, libsstv-callsign, libwefax-postproc;
+LGPL-2.1+), which stay separate, unmodified libraries: you may replace it as described in
+/usr/share/licenses/x6ng/README-replace-libraries.txt.
 
-The complete list of packages in the image, each with its version and licence,
-and the full licence texts are in THIRD_PARTY_LICENSES, installed on the radio
-in /usr/share/x6100/licenses/ together with these terms and the licence files
-of every package (/usr/share/x6100/licenses/packages/).
+The licence files of every package in the image are installed on the radio in
+/usr/share/x6100/licenses/packages/<package>-<version>/, next to these terms in /usr/share/x6100/licenses/;
+the notices of the components inside x6ng are in /usr/share/licenses/x6ng/.
 
 Address of the source code: the Releases page of
 https://github.com/IU1WXY/X6100-IU1WXY (file
 X6100-IU1WXY-v<version>-gpl-sources.tar.gz). It holds, for each version, the
-source of the GPL and LGPL parts listed above with our patches and build
+source of the GPL, LGPL and MPL parts listed above with our patches and build
 files, the kernel configuration and the list of upstream source archives
 used. The same source can also be requested at info@x6100-link.it.
 
 Nothing in these terms limits the rights those licences give you for that
 software.
 
-7. Data sent to x6100-link.it
+
+8. Data sent to x6100-link.it
 
 What the radio sends and why is described in the privacy notice at
 https://x6100-link.it/privacy.php.
 
-8. Contact
+9. Contact
 
 info@x6100-link.it
