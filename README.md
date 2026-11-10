@@ -68,6 +68,11 @@ JS8 dictionary, the fonts and more). Those licences apply in full: the list and
 the texts are in [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES), and on the radio
 in `/usr/share/x6100/licenses/` and `/usr/share/licenses/x6ng/`.
 
+## Credits
+
+MUF data: [KC2G](https://prop.kc2g.com), from ionosonde measurements of the
+[Global Ionospheric Radio Observatory (GIRO)](https://giro.uml.edu).
+
 ## GPL sources
 
 Each release has the file `X6100-IU1WXY-v<version>-gpl-sources.tar.gz` among
