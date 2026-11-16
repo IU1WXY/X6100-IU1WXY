@@ -3,8 +3,8 @@
 <p align="center"><i>by Giovanni Ricciardi IU1WXY</i> · <a href="https://x6100-link.it"><b>x6100-link.it</b></a></p>
 
 A complete microSD firmware for the Xiegu X6100. From version 0.2 its
-interface (x6ng) and the library that talks to the radio (x6radio) are written
-from scratch: digital modes on the radio (FT8, FT4, JS8, WSPR, PSK, RTTY,
+interface (x6ng) and the library that talks to the radio (x6radio) are my own
+code, with no code copied from earlier firmware: digital modes on the radio (FT8, FT4, JS8, WSPR, PSK, RTTY,
 Olivia, Hellschreiber, SSTV, WeFax, NAVTEX, DSC, HF APRS, FreeDV), Winlink over
 the internet or over the air (ARDOP or VARA HF compatible), CW keyer and
 decoder, DX cluster, Broadcast, SOTA/POTA/WWFF/GMA, a 3D waterfall, themes, a
@@ -35,14 +35,20 @@ of each version, the terms of use and the third-party licences.
 
 ## Install
 
-1. Download `x6100-iu1wxy-<version>-sdcard.img` from the
+> **⚠️ Make a backup before installing 0.2.2.** 0.2.2 completely changes how the microSD is
+> organised: writing the image erases everything on the card (settings, logs, memories,
+> recordings, calibrations). Without a backup nothing can be recovered. In the web configurator:
+> **System → Backup → Download**; at the first start the radio offers **Restore from backup**.
+
+1. Download `x6100-link-<version>-sdcard.img` from the
    **[latest release](https://github.com/IU1WXY/X6100-IU1WXY/releases/latest)**
    and check it against its `.sha256` file.
 2. Write it to a microSD card with [balenaEtcher](https://etcher.balena.io/) or Raspberry Pi Imager.
 3. Put the card in the radio and switch on.
 
 Recommended base firmware: Georgy Dyuldin's patched baseband r13.
-Wi-Fi networks and Bluetooth pairings are kept when you rewrite the card.
+From 0.2.2 on, new versions install over the network from the radio's Update menu, without
+rewriting the card; if something goes wrong the radio goes back to the previous version by itself.
 
 ## Manual
 
@@ -58,8 +64,7 @@ install and use it free of charge on your X6100, keep copies and pass the
 unmodified image to other X6100 owners free of charge. You may not sell it,
 modify it, reverse engineer it or present it as your own work, except where
 the law or the licences of the third-party parts allow it. It comes without
-any warranty. Versions up to 0.127 stay under the licences they were
-published with.
+any warranty.
 
 The image also holds software by other authors under their own licences
 (Linux, BusyBox, U-Boot, glibc and the system libraries, LVGL, cJSON, ft8_lib,
@@ -69,6 +74,17 @@ the texts are in [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES), and on the radio
 in `/usr/share/x6100/licenses/` and `/usr/share/licenses/x6ng/`.
 
 ## Credits
+
+- **Hany El Imam 1KO125** (TheMurusTeam): SSTV ML denoiser, SSTV callsign reading and WeFax
+  post-processing (LGPL-2.1-or-later, separate replaceable libraries).
+- **Georgy Dyuldin R2RFE, Rui Oliveira CT7ALW, Oleg Belousov R1CBU**: board support of the
+  AetherX6100Buildroot tree the image is built with (GPL-2.0).
+- **David Rowe**: codec2 / FreeDV. **Jordan Sherer KN4CRD**: the JS8 dictionary.
+- **Martin Hebnes Pedersen LA5NTA**: Pat. **Rick Muething, John Wiseman, Peter LaRue**: ARDOPcf.
+  **x0rro**: XARA. **Karlis Goba**: ft8_lib. **Jim Reisert AD1C**: Big CTY.
+- Spots and references downloaded when you use them: SOTA, POTA, WWFF, WWBOTA, HOTA; EiBi
+  broadcast schedules (Eike Bierwirth).
+- Everyone who sent reports and ideas.
 
 MUF data: [KC2G](https://prop.kc2g.com), from ionosonde measurements of the
 [Global Ionospheric Radio Observatory (GIRO)](https://giro.uml.edu).
