@@ -40,10 +40,11 @@ of each version, the terms of use and the third-party licences.
 > recordings, calibrations). Without a backup nothing can be recovered. In the web configurator:
 > **System → Backup → Download**; at the first start the radio offers **Restore from backup**.
 
-1. Download `x6100-link-<version>-sdcard.img` from the
+1. Download `x6100-link-<version>-sdcard.img.xz` from the
    **[latest release](https://github.com/IU1WXY/X6100-IU1WXY/releases/latest)**
    and check it against its `.sha256` file.
-2. Write it to a microSD card with [balenaEtcher](https://etcher.balena.io/) or Raspberry Pi Imager.
+2. Write it to a microSD card with [balenaEtcher](https://etcher.balena.io/) or Raspberry Pi Imager:
+   both read the compressed `.img.xz` directly, there is no need to unpack it.
 3. Put the card in the radio and switch on.
 
 Recommended base firmware: Georgy Dyuldin's patched baseband r13.
