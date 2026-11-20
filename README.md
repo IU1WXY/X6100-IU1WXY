@@ -4,7 +4,8 @@
 
 A complete microSD firmware for the Xiegu X6100. From version 0.2 its
 interface (x6ng) and the library that talks to the radio (x6radio) are my own
-code, with no code copied from earlier firmware: digital modes on the radio (FT8, FT4, JS8, WSPR, PSK, RTTY,
+code, and from 0.2.4 the operating system under them is a new tree of mine on
+upstream Buildroot, Linux and U-Boot: digital modes on the radio (FT8, FT4, JS8, WSPR, PSK, RTTY,
 Olivia, Hellschreiber, SSTV, WeFax, NAVTEX, DSC, HF APRS, FreeDV), Winlink over
 the internet or over the air (ARDOP or VARA HF compatible), CW keyer and
 decoder, DX cluster, Broadcast, SOTA/POTA/WWFF/GMA, a 3D waterfall, themes, a
@@ -47,7 +48,7 @@ of each version, the terms of use and the third-party licences.
    both read the compressed `.img.xz` directly, there is no need to unpack it.
 3. Put the card in the radio and switch on.
 
-Recommended base firmware: Georgy Dyuldin's patched baseband r13.
+Recommended baseband: 1.1.6 r13.
 From 0.2.2 on, new versions install over the network from the radio's Update menu, without
 rewriting the card; if something goes wrong the radio goes back to the previous version by itself.
 
@@ -69,17 +70,15 @@ any warranty.
 
 The image also holds software by other authors under their own licences
 (Linux, BusyBox, U-Boot, glibc and the system libraries, LVGL, cJSON, ft8_lib,
-KISS FFT, codec2, the SSTV libraries by Hany El Imam, Pat, ardopcf, XARA, the
+KISS FFT, codec2, the SSTV denoiser by Hany El Imam, Pat, ardopcf, XARA, the
 JS8 dictionary, the fonts and more). Those licences apply in full: the list and
 the texts are in [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES), and on the radio
-in `/usr/share/x6100/licenses/` and `/usr/share/licenses/x6ng/`.
+in `/usr/share/x6ng/licenses/`.
 
 ## Credits
 
-- **Hany El Imam 1KO125** (TheMurusTeam): SSTV ML denoiser, SSTV callsign reading and WeFax
-  post-processing (LGPL-2.1-or-later, separate replaceable libraries).
-- **Georgy Dyuldin R2RFE, Rui Oliveira CT7ALW, Oleg Belousov R1CBU**: board support of the
-  AetherX6100Buildroot tree the image is built with (GPL-2.0).
+- **Hany El Imam 1KO125** (TheMurusTeam): SSTV ML denoiser (LGPL-2.1-or-later, a separate
+  replaceable library).
 - **David Rowe**: codec2 / FreeDV. **Jordan Sherer KN4CRD**: the JS8 dictionary.
 - **Martin Hebnes Pedersen LA5NTA**: Pat. **Rick Muething, John Wiseman, Peter LaRue**: ARDOPcf.
   **x0rro**: XARA. **Karlis Goba**: ft8_lib. **Jim Reisert AD1C**: Big CTY.
@@ -93,9 +92,9 @@ MUF data: [KC2G](https://prop.kc2g.com), from ionosonde measurements of the
 ## GPL sources
 
 Each release has the file `X6100-IU1WXY-v<version>-gpl-sources.tar.gz` among
-its assets: the source of the GPL, LGPL and MPL parts of that image, the
-kernel configuration and patches, the WiFi driver patches, the buildroot tree
-and its legal-info. The same source can be requested at info@x6100-link.it.
+its assets: the source of the GPL, LGPL and MPL parts of that image (every
+package from the Buildroot legal-info), the kernel and U-Boot configuration and
+patches, the device tree, and the toolchain sources (glibc, gcc). The same source can be requested at info@x6100-link.it.
 
 ## Privacy
 
